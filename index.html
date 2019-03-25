@@ -62,6 +62,53 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-关于msfconsole连接不上数据问题的解决方法" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/03/25/关于msfconsole连接不上数据问题的解决方法/" class="article-date">
+  <time datetime="2019-03-25T10:49:20.142Z" itemprop="datePublished">2019-03-25</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">title: 关于msfconsole连接不上数据问题的解决方法</span><br><span class="line">date: 2019-03-25 18:49:20</span><br><span class="line">tags: msfconsole</span><br></pre></td></tr></table></figure>
+<pre><code>这篇博客可能对于那些有强迫症的人来说是一个福音把，本人就是一个患有微型强迫症的人，凡事追求完美，所以才绞尽脑汁的去找解决这一问题的办法，也是在网上找了很多的资料才解决了这一个问题。有需要的可以借鉴一下
+</code></pre><p>​    就本身来说msf这个工具是否连接数据库，影响不大，只是有时后他的查找模块的速度实在太慢了。为了追求速度，我决定找资料来解决我的这个问题。下面说一下我的这个问题的解决方法</p>
+<p>​    </p>
+<p>​    <a href="https://blog.csdn.net/qq_34444097/article/details/79679640" target="_blank" rel="noopener">前面部分我主要是引用了这条博客里的方法</a></p>
+<p>​    从这里开始要注意了：</p>
+<p><img src="E:\Program Files\nodejs\blog\source\image\msf连接数据库\1.png" alt></p>
+<p>在数据库里进行这些操作时要先查看数据库里是否已经存在msf用户和msf库，如果存在要先删除此用户及库再重新建立，用到的删除命令如下（注意分号，有分号的命令一定要带分号）</p>
+<p>​    </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">\du; 查看用户</span><br><span class="line"></span><br><span class="line">drop user msf; 删除msf用户</span><br><span class="line"></span><br><span class="line">\l 查看数据库</span><br><span class="line"></span><br><span class="line">drop database msf; 删除数据库</span><br></pre></td></tr></table></figure>
+<p>接下来进入数据库创建新的数据库</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">create user msf with password &apos;admin&apos; createdb; </span><br><span class="line"></span><br><span class="line">create database msf with owner=msf;</span><br></pre></td></tr></table></figure>
+<p>进入msfconsole后查看数据库连接状态，如未连接，手动执行连接，命令为</p>
+<p>​    </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db_connect</span><br></pre></td></tr></table></figure>
+<p>接下来就是如何开启自动连接：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">到此路径下：/usr/share/metasploit-framework/config</span><br><span class="line"></span><br><span class="line">	先备份一下原有的database.yml文件</span><br><span class="line"></span><br><span class="line">	cp database.yml database.yml.bak</span><br><span class="line"></span><br><span class="line">	里面有模板文件是database.yml.travis</span><br><span class="line"></span><br><span class="line">	将其作为配置文件覆盖</span><br><span class="line"></span><br><span class="line">	cp database.yml.travis database.yml</span><br></pre></td></tr></table></figure>
+<p>​    leafpad打开database.yml将其编辑成下面的样子保存即可。</p>
+<p><img src="E:\Program Files\nodejs\blog\source\image\msf连接数据库\2.PNG" alt></p>
+<p>重启postgres数据库，打开msfconsole，查看数据库连接状态应该就已经自动连接成功了</p>
+<p>​    </p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/03/25/关于msfconsole连接不上数据问题的解决方法/" data-id="cjtocs78a00019gb1iythoba4" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-永恒之蓝漏洞复现" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2019/03/25/永恒之蓝漏洞复现/" class="article-date">
@@ -119,7 +166,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/25/永恒之蓝漏洞复现/" data-id="cjto7vbrm0002osb1oqv5ovnm" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/03/25/永恒之蓝漏洞复现/" data-id="cjtocs78v00039gb1bv4e66n5" class="article-share-link">Share</a>
       
       
     </footer>
@@ -147,7 +194,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/25/test/" data-id="cjto7vbrj0001osb10o33kwk0" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/03/25/test/" data-id="cjtocs78a00029gb170hg2ez7" class="article-share-link">Share</a>
       
       
     </footer>
@@ -192,7 +239,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/25/hello-world/" data-id="cjto7vbrb0000osb1mai66af9" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/03/25/hello-world/" data-id="cjtocs78a00009gb19it2rpsn" class="article-share-link">Share</a>
       
       
     </footer>
@@ -230,6 +277,10 @@
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2019/03/25/关于msfconsole连接不上数据问题的解决方法/">(no title)</a>
+          </li>
         
           <li>
             <a href="/2019/03/25/永恒之蓝漏洞复现/">(no title)</a>
