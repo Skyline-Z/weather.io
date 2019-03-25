@@ -62,42 +62,6 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-test-1" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/03/25/test-1/" class="article-date">
-  <time datetime="2019-03-25T13:07:25.000Z" itemprop="datePublished">2019-03-25</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/03/25/test-1/">test</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/25/test-1/" data-id="cjtogzwfa0000hgb181f1dmei" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
     <article id="post-关于msfconsole连接不上数据问题的解决方法" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2019/03/25/关于msfconsole连接不上数据问题的解决方法/" class="article-date">
@@ -116,7 +80,7 @@
 <p>​    </p>
 <p>​    <a href="https://blog.csdn.net/qq_34444097/article/details/79679640" target="_blank" rel="noopener">前面部分我主要是引用了这条博客里的方法</a></p>
 <p>​    从这里开始要注意了：</p>
-<p>​    </p>
+<p>​    <img src="/2019/03/25/关于msfconsole连接不上数据问题的解决方法/1.png"></p>
 <p>在数据库里进行这些操作时要先查看数据库里是否已经存在msf用户和msf库，如果存在要先删除此用户及库再重新建立，用到的删除命令如下（注意分号，有分号的命令一定要带分号）</p>
 <p>​    </p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">\du; 查看用户</span><br><span class="line"></span><br><span class="line">drop user msf; 删除msf用户</span><br><span class="line"></span><br><span class="line">\l 查看数据库</span><br><span class="line"></span><br><span class="line">drop database msf; 删除数据库</span><br></pre></td></tr></table></figure>
@@ -135,7 +99,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/25/关于msfconsole连接不上数据问题的解决方法/" data-id="cjtogzwfa0003hgb16cno81hm" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/03/25/关于msfconsole连接不上数据问题的解决方法/" data-id="cjtohiw0k0002psb1ie7tgz2c" class="article-share-link">Share</a>
       
       
     </footer>
@@ -167,7 +131,7 @@
 </li>
 <li><p><strong>进入kaliLinux系统，进行主机发现，这里我用的是netdiscover的二层发现。当然主机发现的方法有很多，选自己最熟练就好</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">**netdiscover -i eth0 -r 网段（-i指定网卡）**</span><br></pre></td></tr></table></figure>
-
+<img src="/2019/03/25/永恒之蓝漏洞复现/1.png">
 </li>
 <li><p><strong>发现目标IP后可使用nessus去扫描目标主机是否有相关漏洞。（关于这个工具的使用后续我会发博客演示）</strong></p>
 </li>
@@ -175,21 +139,21 @@
 <p><strong>关于有些人启动数据库后启动msfconsole还是不能连接数据的问题，后续也会推出我的解决办法，当然不论是否连接上数据库都不影响msfconsole的使用只是查找模块的速度会慢一些。</strong></p>
 </li>
 <li><p><strong>查找ms17_010的相关模</strong></p>
-
+<img src="/2019/03/25/永恒之蓝漏洞复现/2.png">
 </li>
 <li><p><strong>使用扫描模块（进一步扫描是否存在ms17_010</strong></p>
-
+<img src="/2019/03/25/永恒之蓝漏洞复现/3.png">
 </li>
 <li><p><strong>使用攻击模块</strong></p>
 <p><strong>攻击完成后会弹出Windows的DOS窗口，直接是最高的系统权限</strong></p>
-
-
+<img src="/2019/03/25/永恒之蓝漏洞复现/4.png">
+<img src="/2019/03/25/永恒之蓝漏洞复现/5.png">
 <p><strong>为了更加方便的操作，可以利用DOS界面关闭防火墙，打开远程连接端口（3389），实现远程的图像化操作</strong></p>
-
-
-
-
-
+<img src="/2019/03/25/永恒之蓝漏洞复现/7.png">
+<img src="/2019/03/25/永恒之蓝漏洞复现/8.png">
+<img src="/2019/03/25/永恒之蓝漏洞复现/10.png">
+<img src="/2019/03/25/永恒之蓝漏洞复现/11.png">
+<img src="/2019/03/25/永恒之蓝漏洞复现/12.png">
 <p><strong>在这里可能存在问题，没有账号密码怎么登录界面，前面在DOS中已经时系统权限了，我们可以创建一个自己的用户到管理员组，登录再提权到系统权限了，这个方法就很多了。</strong></p>
 </li>
 </ol>
@@ -201,7 +165,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/25/永恒之蓝漏洞复现/" data-id="cjtogzwfa0004hgb1n3uqrt8p" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/03/25/永恒之蓝漏洞复现/" data-id="cjtohiw0k0003psb1a8d1ser0" class="article-share-link">Share</a>
       
       
     </footer>
@@ -229,7 +193,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/25/test/" data-id="cjtogzwfa0001hgb1tnaof9e4" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/03/25/test/" data-id="cjtohiw0k0000psb1uyd3z319" class="article-share-link">Share</a>
       
       
     </footer>
@@ -274,7 +238,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/25/hello-world/" data-id="cjtogzwfa0002hgb1wmmrwxyp" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/03/25/hello-world/" data-id="cjtohiw0k0001psb1or9xm459" class="article-share-link">Share</a>
       
       
     </footer>
@@ -312,10 +276,6 @@
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
-        
-          <li>
-            <a href="/2019/03/25/test-1/">test</a>
-          </li>
         
           <li>
             <a href="/2019/03/25/关于msfconsole连接不上数据问题的解决方法/">(no title)</a>
