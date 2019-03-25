@@ -12,13 +12,10 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="title: 关于msfconsole连接不上数据问题的解决方法date: 2019-03-25 18:49:20tags: msfconsole ​    这篇博客可能对于那些有强迫症的人来说是一个福音把，本人就是一个患有微型强迫症的人，凡事追求完美，所以才绞尽脑汁的去找解决这一问题的办法，也是在网上找了很多的资料才解决了这一个问题。有需要的可以借鉴一下 ​    就本身来说msf这个工具是否连">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="e:/Program%20Files/nodejs/blog/source/image/msf连接数据库/1.png">
-<meta property="og:image" content="e:/Program%20Files/nodejs/blog/source/image/msf连接数据库/2.PNG">
-<meta property="og:updated_time" content="2019-03-25T12:58:19.576Z">
+<meta property="og:updated_time" content="2019-03-25T14:46:30.327Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hexo">
 <meta name="twitter:description" content="title: 关于msfconsole连接不上数据问题的解决方法date: 2019-03-25 18:49:20tags: msfconsole ​    这篇博客可能对于那些有强迫症的人来说是一个福音把，本人就是一个患有微型强迫症的人，凡事追求完美，所以才绞尽脑汁的去找解决这一问题的办法，也是在网上找了很多的资料才解决了这一个问题。有需要的可以借鉴一下 ​    就本身来说msf这个工具是否连">
-<meta name="twitter:image" content="e:/Program%20Files/nodejs/blog/source/image/msf连接数据库/1.png">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -85,7 +82,7 @@
 <p>​    </p>
 <p>​    <a href="https://blog.csdn.net/qq_34444097/article/details/79679640" target="_blank" rel="noopener">前面部分我主要是引用了这条博客里的方法</a></p>
 <p>​    从这里开始要注意了：</p>
-<p><img src="E:\Program Files\nodejs\blog\source\image\msf连接数据库\1.png" alt></p>
+<p>​    </p>
 <p>在数据库里进行这些操作时要先查看数据库里是否已经存在msf用户和msf库，如果存在要先删除此用户及库再重新建立，用到的删除命令如下（注意分号，有分号的命令一定要带分号）</p>
 <p>​    </p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">\du; 查看用户</span><br><span class="line"></span><br><span class="line">drop user msf; 删除msf用户</span><br><span class="line"></span><br><span class="line">\l 查看数据库</span><br><span class="line"></span><br><span class="line">drop database msf; 删除数据库</span><br></pre></td></tr></table></figure>
@@ -97,14 +94,14 @@
 <p>接下来就是如何开启自动连接：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">到此路径下：/usr/share/metasploit-framework/config</span><br><span class="line"></span><br><span class="line">	先备份一下原有的database.yml文件</span><br><span class="line"></span><br><span class="line">	cp database.yml database.yml.bak</span><br><span class="line"></span><br><span class="line">	里面有模板文件是database.yml.travis</span><br><span class="line"></span><br><span class="line">	将其作为配置文件覆盖</span><br><span class="line"></span><br><span class="line">	cp database.yml.travis database.yml</span><br></pre></td></tr></table></figure>
 <p>​    leafpad打开database.yml将其编辑成下面的样子保存即可。</p>
-<p><img src="E:\Program Files\nodejs\blog\source\image\msf连接数据库\2.PNG" alt></p>
+<p>​    </p>
 <p>重启postgres数据库，打开msfconsole，查看数据库连接状态应该就已经自动连接成功了</p>
 <p>​    </p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/25/关于msfconsole连接不上数据问题的解决方法/" data-id="cjtogjmrv0002hgb1zehc91hf" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/03/25/关于msfconsole连接不上数据问题的解决方法/" data-id="cjtogzwfa0003hgb16cno81hm" class="article-share-link">Share</a>
       
       
     </footer>

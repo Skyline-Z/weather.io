@@ -88,7 +88,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/25/test-1/" data-id="cjtogjmrv0001hgb1kc4gi4fb" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/03/25/test-1/" data-id="cjtogzwfa0000hgb181f1dmei" class="article-share-link">Share</a>
       
       
     </footer>
@@ -116,7 +116,7 @@
 <p>​    </p>
 <p>​    <a href="https://blog.csdn.net/qq_34444097/article/details/79679640" target="_blank" rel="noopener">前面部分我主要是引用了这条博客里的方法</a></p>
 <p>​    从这里开始要注意了：</p>
-<p><img src="E:\Program Files\nodejs\blog\source\image\msf连接数据库\1.png" alt></p>
+<p>​    </p>
 <p>在数据库里进行这些操作时要先查看数据库里是否已经存在msf用户和msf库，如果存在要先删除此用户及库再重新建立，用到的删除命令如下（注意分号，有分号的命令一定要带分号）</p>
 <p>​    </p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">\du; 查看用户</span><br><span class="line"></span><br><span class="line">drop user msf; 删除msf用户</span><br><span class="line"></span><br><span class="line">\l 查看数据库</span><br><span class="line"></span><br><span class="line">drop database msf; 删除数据库</span><br></pre></td></tr></table></figure>
@@ -128,14 +128,14 @@
 <p>接下来就是如何开启自动连接：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">到此路径下：/usr/share/metasploit-framework/config</span><br><span class="line"></span><br><span class="line">	先备份一下原有的database.yml文件</span><br><span class="line"></span><br><span class="line">	cp database.yml database.yml.bak</span><br><span class="line"></span><br><span class="line">	里面有模板文件是database.yml.travis</span><br><span class="line"></span><br><span class="line">	将其作为配置文件覆盖</span><br><span class="line"></span><br><span class="line">	cp database.yml.travis database.yml</span><br></pre></td></tr></table></figure>
 <p>​    leafpad打开database.yml将其编辑成下面的样子保存即可。</p>
-<p><img src="E:\Program Files\nodejs\blog\source\image\msf连接数据库\2.PNG" alt></p>
+<p>​    </p>
 <p>重启postgres数据库，打开msfconsole，查看数据库连接状态应该就已经自动连接成功了</p>
 <p>​    </p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/25/关于msfconsole连接不上数据问题的解决方法/" data-id="cjtogjmrv0002hgb1zehc91hf" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/03/25/关于msfconsole连接不上数据问题的解决方法/" data-id="cjtogzwfa0003hgb16cno81hm" class="article-share-link">Share</a>
       
       
     </footer>
@@ -167,34 +167,33 @@
 </li>
 <li><p><strong>进入kaliLinux系统，进行主机发现，这里我用的是netdiscover的二层发现。当然主机发现的方法有很多，选自己最熟练就好</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">**netdiscover -i eth0 -r 网段（-i指定网卡）**</span><br></pre></td></tr></table></figure>
-<p><strong><img src="E:\Program Files\nodejs\blog\source\image\永恒之蓝\1.png" alt></strong></p>
+
 </li>
 <li><p><strong>发现目标IP后可使用nessus去扫描目标主机是否有相关漏洞。（关于这个工具的使用后续我会发博客演示）</strong></p>
 </li>
 <li><p><strong>启动msfconsole（先启动数据库Msfdb start 或者 service postgresql start）</strong></p>
 <p><strong>关于有些人启动数据库后启动msfconsole还是不能连接数据的问题，后续也会推出我的解决办法，当然不论是否连接上数据库都不影响msfconsole的使用只是查找模块的速度会慢一些。</strong></p>
 </li>
-<li><p><strong>查找ms17_010的相关模块</strong></p>
-<p><strong><img src="E:\Program Files\nodejs\blog\source\image\永恒之蓝\2.png" alt></strong></p>
+<li><p><strong>查找ms17_010的相关模</strong></p>
+
 </li>
-<li><p><strong>使用扫描模块（进一步扫描是否存在ms17_010）</strong></p>
-<p><strong><img src="E:\Program Files\nodejs\blog\source\image\永恒之蓝\3.png" alt></strong></p>
+<li><p><strong>使用扫描模块（进一步扫描是否存在ms17_010</strong></p>
+
 </li>
 <li><p><strong>使用攻击模块</strong></p>
 <p><strong>攻击完成后会弹出Windows的DOS窗口，直接是最高的系统权限</strong></p>
-<p><strong><img src="E:\Program Files\nodejs\blog\source\image\永恒之蓝\4.png" alt></strong></p>
-<p><strong><img src="E:\Program Files\nodejs\blog\source\image\永恒之蓝\5.png" alt></strong></p>
-</li>
-<li><p><strong>为了更加方便的操作，可以利用DOS界面关闭防火墙，打开远程连接端口（3389），实现远程的图像化操作</strong></p>
-<p><strong><img src="E:\Program Files\nodejs\blog\source\image\永恒之蓝\7.png" alt></strong></p>
-<p><strong><img src="E:\Program Files\nodejs\blog\source\image\永恒之蓝\8.png" alt></strong></p>
-<p><strong><img src="E:\Program Files\nodejs\blog\source\image\永恒之蓝\10.png" alt></strong></p>
-<p><strong><img src="E:\Program Files\nodejs\blog\source\image\永恒之蓝\11.png" alt></strong></p>
-<p><strong><img src="E:\Program Files\nodejs\blog\source\image\永恒之蓝\12.png" alt></strong></p>
+
+
+<p><strong>为了更加方便的操作，可以利用DOS界面关闭防火墙，打开远程连接端口（3389），实现远程的图像化操作</strong></p>
+
+
+
+
+
 <p><strong>在这里可能存在问题，没有账号密码怎么登录界面，前面在DOS中已经时系统权限了，我们可以创建一个自己的用户到管理员组，登录再提权到系统权限了，这个方法就很多了。</strong></p>
 </li>
 </ol>
-<ol start="9">
+<ol start="8">
 <li><strong>完成收工时记得清理访问日志，留下后门，以便于下次继续来访。</strong></li>
 </ol>
 <p>​    <strong>最后谈一下感想，作为一个刚刚入门安全不久的小白，这是我在github的第一篇博客，想在这里记录一下自己再安全领域的学习历程，当然欢迎各位大佬的指点，我一定虚心接受学习。总之，是真的喜欢这一行业才决定要在这里请教，记录，后续还或有更多的关于我学习安全的一些博客和经历，欢迎各位前来指点。</strong></p>
@@ -202,7 +201,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/25/永恒之蓝漏洞复现/" data-id="cjtogjmsb0004hgb166b8ri94" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/03/25/永恒之蓝漏洞复现/" data-id="cjtogzwfa0004hgb1n3uqrt8p" class="article-share-link">Share</a>
       
       
     </footer>
@@ -230,7 +229,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/25/test/" data-id="cjtogjmrv0003hgb1rdb3zqjc" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/03/25/test/" data-id="cjtogzwfa0001hgb1tnaof9e4" class="article-share-link">Share</a>
       
       
     </footer>
@@ -275,7 +274,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/25/hello-world/" data-id="cjtogjmrv0000hgb1bjiymlyd" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/03/25/hello-world/" data-id="cjtogzwfa0002hgb1wmmrwxyp" class="article-share-link">Share</a>
       
       
     </footer>
