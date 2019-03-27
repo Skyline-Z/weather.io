@@ -481,6 +481,19 @@
           
             
             
+              
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+            
+                <span class="post-meta-item-text">评论数：</span>
+                <a href="/2019/03/26/永恒之蓝入侵过程/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/2019/03/26/永恒之蓝入侵过程/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
           
 
           
@@ -613,11 +626,15 @@
           
 
   
-    <div id="gitalk-container"></div>
+    <div class="comments" id="comments">
+      
+        <div onclick="showGitment()" id="gitment-display-button">显示 Gitment 评论</div>
+        <div id="gitment-container" style="display: none"></div>
+      
+    </div>
 
   
   
-
 
         </div>
         
@@ -932,46 +949,83 @@
 
 
   
-    
-  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
-  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+    <!-- LOCAL: You can save these files to your site and update links -->
+
   
-  <script src="/js/src/md5.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/theme-next/theme-next-gitment@1/gitmint.browser.js"></script>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/theme-next/theme-next-gitment@1/default.css">
+<!-- END LOCAL -->
+
+<script>
+  function renderGitment() {
+    var gitment = new Gitmint({
+      id: window.location.pathname,
+      owner: 'hahachild',
+      repo: 'commend',
+      
+        lang: '' || navigator.language || navigator.systemLanguage || navigator.userLanguage,
+      
+      oauth: {
+      
+      
+        client_secret: '9fe8ff77cdd2c197d40a0e589a3180ccdb8ea8ee',
+      
+        client_id: '6f39c7ce833717d57dad'
+      }
+    });
+    gitment.render('gitment-container');
+  }
+
   
-   <script type="text/javascript">
-        var gitalk = new Gitalk({
-          clientID: 'c93df7030f8aa19dd95f',
-          clientSecret: '0bd4567f848c43b0b8c7f592c67065dd2436b8f6',
-          repo: 'hahachild.github.io',
-          owner: 'hahachild',
-          admin: ['hahachild'],
-          id: md5(location.pathname),
-          distractionFreeMode: 'true'
-        })
-        gitalk.render('gitalk-container')           
-       </script>
+    function showGitment() {
+      document.getElementById('gitment-display-button').style.display = 'none';
+      document.getElementById('gitment-container').style.display = 'block';
+      renderGitment();
+    }
+  
+</script>
 
   
 
 
-  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
-  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
-  
-  <script src="/js/src/md5.min.js"></script>
-  
-   <script type="text/javascript">
-        var gitalk = new Gitalk({
-          clientID: 'c93df7030f8aa19dd95f',
-          clientSecret: '0bd4567f848c43b0b8c7f592c67065dd2436b8f6',
-          repo: 'hahachild.github.io',
-          owner: 'hahachild',
-          admin: ['hahachild'],
-          id: md5(location.pathname),
-          distractionFreeMode: 'true'
-        })
-        gitalk.render('gitalk-container')           
-       </script>
 
+<!-- LOCAL: You can save these files to your site and update links -->
+
+  
+  <script src="https://cdn.jsdelivr.net/gh/theme-next/theme-next-gitment@1/gitmint.browser.js"></script>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/theme-next/theme-next-gitment@1/default.css">
+<!-- END LOCAL -->
+
+<script>
+  function renderGitment() {
+    var gitment = new Gitmint({
+      id: window.location.pathname,
+      owner: 'hahachild',
+      repo: 'commend',
+      
+        lang: '' || navigator.language || navigator.systemLanguage || navigator.userLanguage,
+      
+      oauth: {
+      
+      
+        client_secret: '9fe8ff77cdd2c197d40a0e589a3180ccdb8ea8ee',
+      
+        client_id: '6f39c7ce833717d57dad'
+      }
+    });
+    gitment.render('gitment-container');
+  }
+
+  
+    function showGitment() {
+      document.getElementById('gitment-display-button').style.display = 'none';
+      document.getElementById('gitment-container').style.display = 'block';
+      renderGitment();
+    }
+  
+</script>
 
   
   <script>
