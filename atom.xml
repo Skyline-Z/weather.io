@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2019-03-26T15:05:55.515Z</updated>
+  <updated>2019-03-26T15:32:57.732Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,20 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>nessue的使用</title>
+    <link href="http://yoursite.com/2019/03/26/nessue%E7%9A%84%E4%BD%BF%E7%94%A8/"/>
+    <id>http://yoursite.com/2019/03/26/nessue的使用/</id>
+    <published>2019-03-26T15:27:33.000Z</published>
+    <updated>2019-03-26T15:32:57.732Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>关于msfconsole自动连接数据库失败问题解决</title>

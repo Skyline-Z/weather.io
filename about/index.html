@@ -492,7 +492,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">2</span>
+                    <span class="site-state-item-count">3</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -746,18 +746,11 @@
 
   
     
-
-<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
-
-
-
-<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
-
-
-
-
   <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
   <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  
+  <script src="/js/src/md5.min.js"></script>
+  
    <script type="text/javascript">
         var gitalk = new Gitalk({
           clientID: 'c93df7030f8aa19dd95f',
@@ -765,32 +758,32 @@
           repo: 'hahachild.github.io',
           owner: 'hahachild',
           admin: ['hahachild'],
-          id: location.pathname,
+          id: md5(location.pathname),
           distractionFreeMode: 'true'
         })
         gitalk.render('gitalk-container')           
        </script>
 
-<script src="//cdn.jsdelivr.net/npm/js-md5@0.7.3/src/md5.min.js"></script>
-
-<script>
-  var gitalk = new Gitalk({
-    clientID: '',
-    clientSecret: '',
-    repo: 'hahachild.github.io',
-    owner: '',
-    admin: [''],
-    id: md5(location.pathname),
-    
-      language: window.navigator.language || window.navigator.userLanguage,
-    
-    distractionFreeMode: ''
-  });
-  gitalk.render('gitalk-container');
-</script>
-
   
 
+
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  
+  <script src="/js/src/md5.min.js"></script>
+  
+   <script type="text/javascript">
+        var gitalk = new Gitalk({
+          clientID: 'c93df7030f8aa19dd95f',
+          clientSecret: '0bd4567f848c43b0b8c7f592c67065dd2436b8f6',
+          repo: 'hahachild.github.io',
+          owner: 'hahachild',
+          admin: ['hahachild'],
+          id: md5(location.pathname),
+          distractionFreeMode: 'true'
+        })
+        gitalk.render('gitalk-container')           
+       </script>
 
 
   
@@ -1148,7 +1141,7 @@
 
 
 
-<script type="text/javascript" color="0,0,0" opacity="0.7" zindex="-1" count="500" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+<script type="text/javascript" color="0,0,0" opacity="0.7" zindex="-1" count="150" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
 
 
 </body>
