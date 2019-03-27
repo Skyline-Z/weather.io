@@ -1823,7 +1823,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #8ed5f6;
+  background: #ac1f74;
 }
 .feed-link,
 .chat {
@@ -2075,13 +2075,21 @@ pre .javascript .function {
     transform: scale(1.1);
   }
 }
-.gt-header a,
-.gt-comments a,
-.gt-popup a {
-  border-bottom: none;
+#gitment-display-button {
+  display: inline-block;
+  padding: 0 15px;
+  color: #0a9caf;
+  cursor: pointer;
+  font-size: 14px;
+  border: 1px solid #0a9caf;
+  border-radius: 4px;
 }
-.gt-container .gt-popup .gt-action.is--active:before {
-  top: 0.7em;
+#gitment-display-button:hover {
+  color: #fff;
+  background: #0a9caf;
+}
+#gitment-container a {
+  border-bottom: none;
 }
 .local-search-pop-overlay {
   position: fixed;
@@ -2196,6 +2204,22 @@ pre .javascript .function {
 }
 .gt-container .gt-popup .gt-action.is--active:before {
   top: 0.7em;
+}
+#gitment-display-button {
+  display: inline-block;
+  padding: 0 15px;
+  color: #0a9caf;
+  cursor: pointer;
+  font-size: 14px;
+  border: 1px solid #0a9caf;
+  border-radius: 4px;
+}
+#gitment-display-button:hover {
+  color: #fff;
+  background: #0a9caf;
+}
+#gitment-container a {
+  border-bottom: none;
 }
 .page-archive .archive-page-counter {
   position: relative;
