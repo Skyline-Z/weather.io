@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2019-03-29T14:20:06.535Z</updated>
+  <updated>2019-10-15T10:51:31.074Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -17,95 +17,24 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>windwos下的本地提权</title>
-    <link href="http://yoursite.com/2019/03/29/windwos%E4%B8%8B%E7%9A%84%E6%9C%AC%E5%9C%B0%E6%8F%90%E6%9D%83/"/>
-    <id>http://yoursite.com/2019/03/29/windwos下的本地提权/</id>
-    <published>2019-03-29T13:06:16.000Z</published>
-    <updated>2019-03-29T14:20:06.535Z</updated>
+    <title>博客重启分割线</title>
+    <link href="http://yoursite.com/2019/10/15/%E5%8D%9A%E5%AE%A2%E9%87%8D%E5%90%AF%E5%88%86%E5%89%B2%E7%BA%BF/"/>
+    <id>http://yoursite.com/2019/10/15/博客重启分割线/</id>
+    <published>2019-10-15T10:45:01.000Z</published>
+    <updated>2019-10-15T10:51:31.074Z</updated>
     
-    <content type="html"><![CDATA[<h3 id="windows下的本地提权"><a href="#windows下的本地提权" class="headerlink" title="windows下的本地提权"></a>windows下的本地提权</h3><p>不管是在windows，Linux还是mac os下，用户都被分为几个等级，windows下的用户一般被分为来宾（guest）、普通用户、管理员及系统这几个用户。它和linux下有些不同。Linux下的root用户就是最高权限，包含了整个系统所有的权限。但在windows下administrator和system稍有不同。system包含了整个系统(包括administrator在内)的所有权限，除了一些administrator特有的权限。但是理论上说system才属于windows下的最高权限。所以在Windows下一般会把权限提升到system级别。</p><p><strong>注：本文的所有操作都是在用户已经是administrator的前提下。以windows xp系统作为演示。</strong></p><a id="more"></a><p>这些操作主要是靠一些已经存在并被使用的工具做到的。这些工具都可以在网上找到。</p><ol><li><h4 id="psexec-exe"><a href="#psexec-exe" class="headerlink" title="psexec.exe"></a>psexec.exe</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">psexec.exe -i -s cmd //-i 交互式登录， -s 获得系统权限 。及打开一个有系统权限的cmd窗口</span><br></pre></td></tr></table></figure></li><li><h4 id="sc命令"><a href="#sc命令" class="headerlink" title="sc命令"></a>sc命令</h4><p>这是windows下的一个很强大的命令可以创建并运行服务。用它创建的服务打开的cmd本身就是一个system权限。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sc create 服务名 binpath= &quot;cmd /k start&quot; type= own type= interact   </span><br><span class="line"></span><br><span class="line">sc start 服务名</span><br></pre></td></tr></table></figure><p>即可打开一个系统权限的cmd窗口。（不同的版本的windows最后的结果可能会有差距，以自己测试的系统为准。）</p></li><li><h4 id="注入进程提权"><a href="#注入进程提权" class="headerlink" title="注入进程提权"></a>注入进程提权</h4><p>非常隐蔽的一种提权，也是用的最多一种方式，一般情况下只有使用procexp.exe 的工具才能找到它</p><p>同样把工具放到一个隐蔽的地方，在cmd里定位到那里。</p><p>先找一个长时间开启的进程，记下PID号。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pinjector.exe -p PID cmd 12345</span><br></pre></td></tr></table></figure><p>通过kali去连接这个端口就会弹出system权限的cmd</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nc -nv IP 端口号</span><br></pre></td></tr></table></figure></li></ol><ol start="4"><li><h4 id="fgdump"><a href="#fgdump" class="headerlink" title="fgdump"></a>fgdump</h4><p>它kali下的一个工具，可以把它拷贝出来，在windows下运行，即可拿到系统的用户名密码。</p><p>这是它的运行后的结果</p><img src="/2019/03/29/windwos下的本地提权/1.png"><img src="/2019/03/29/windwos下的本地提权/2.png"><img src="/2019/03/29/windwos下的本地提权/3.png"></li></ol><h3 id="小结："><a href="#小结：" class="headerlink" title="小结："></a>小结：</h3><p>​    或许有人会问已经拿到管理员权限为什么还要如此麻烦的提取到system权限。其实大多数服务器在设置管理员的时候一般不只一个，除了administrator用户可以直接同过以管理员身份运行外，其他用户都需要输入administrator用户的密码才可以做到这一操作。所以才会这么做。而且大多数情况下administrator用户是不允许远程登录的。所以拿到这个用户的密码也无济于事。另外，一般情况下我们渗透成果后拿到的都是终端，而非图形化界面。所以，很多操作并没有想象的那么简单。windows下的提权还可以使用mimikatz去提权。这也是一个很强大的工具，可以了解一下这个工具的使用方法及作用。</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;h3 id=&quot;windows下的本地提权&quot;&gt;&lt;a href=&quot;#windows下的本地提权&quot; class=&quot;headerlink&quot; title=&quot;windows下的本地提权&quot;&gt;&lt;/a&gt;windows下的本地提权&lt;/h3&gt;&lt;p&gt;不管是在windows，Linux还是mac os下，用户都被分为几个等级，windows下的用户一般被分为来宾（guest）、普通用户、管理员及系统这几个用户。它和linux下有些不同。Linux下的root用户就是最高权限，包含了整个系统所有的权限。但在windows下administrator和system稍有不同。system包含了整个系统(包括administrator在内)的所有权限，除了一些administrator特有的权限。但是理论上说system才属于windows下的最高权限。所以在Windows下一般会把权限提升到system级别。&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;注：本文的所有操作都是在用户已经是administrator的前提下。以windows xp系统作为演示。&lt;/strong&gt;&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="elevate privileges" scheme="http://yoursite.com/categories/elevate-privileges/"/>
-    
-    
-      <category term="penetration testing" scheme="http://yoursite.com/tags/penetration-testing/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>nessus的使用</title>
-    <link href="http://yoursite.com/2019/03/26/nessue%E7%9A%84%E4%BD%BF%E7%94%A8/"/>
-    <id>http://yoursite.com/2019/03/26/nessue的使用/</id>
-    <published>2019-03-26T15:27:33.000Z</published>
-    <updated>2019-03-27T15:09:10.195Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="nessus的使用方法"><a href="#nessus的使用方法" class="headerlink" title="nessus的使用方法"></a>nessus的使用方法</h1><h4 id="先介绍一下nessus："><a href="#先介绍一下nessus：" class="headerlink" title="先介绍一下nessus："></a>先介绍一下nessus：</h4><p>​    nessus是一款非常好的漏洞扫描工具，使用的端口为8834，它是目前使用最多的漏洞扫描工具之一，其中集成了许多的功能，但就使用效果来说，我本人用这个工具仅仅使用其扫描功能而已，一方面来说整个工具中只有这个功能是免费的，其他的功能也就企业使用，个人用户一般用不到，另一方面，他的漏洞扫描的插件确实强大，有很多针对于经常出现问题的服务的插件，扫描完后可以生成报告文档，很方便。</p><a id="more"></a><h5 id="下载地址：https-www-tenable-com-downloads-nessus-直接选择这个去下载最新版本。"><a href="#下载地址：https-www-tenable-com-downloads-nessus-直接选择这个去下载最新版本。" class="headerlink" title="下载地址：https://www.tenable.com/downloads/nessus  直接选择这个去下载最新版本。"></a>下载地址：<a href="https://www.tenable.com/downloads/nessus" target="_blank" rel="noopener">https://www.tenable.com/downloads/nessus</a>  直接选择这个去下载最新版本。</h5><p>为什么下载debian版本，因为kali-linux本事就是一个集成了很多工具的debian-linux系统。</p><img src="/2019/03/26/nessue的使用/1.png"><h4 id="接下来介绍它在kali-linu中的安装方法："><a href="#接下来介绍它在kali-linu中的安装方法：" class="headerlink" title="接下来介绍它在kali-linu中的安装方法："></a>接下来介绍它在kali-linu中的安装方法：</h4><ol><li><p><strong>安装nessus</strong></p><p>把nessue的安装文件放在/opt/下，/opt/目录一般放的是非系统自带的第三方软件（所有的linux系统都是如此）</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">执行命令</span><br><span class="line"></span><br><span class="line">dpkg -i Nessus-7.2.1-debian6_amd64.deb</span><br><span class="line"></span><br><span class="line">安装nessus</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">执行命令</span><br><span class="line"></span><br><span class="line">/etc/init.d/nessusd start</span><br><span class="line"></span><br><span class="line">启动nessus</span><br></pre></td></tr></table></figure><img src="/2019/03/26/nessue的使用/2.png"></li><li><p><strong>注册nessus账号</strong></p><p>访问网址：<a href="http://www.nessus.org/products/nessus/nessus-plugins/obtain-an-activation-code" target="_blank" rel="noopener">http://www.nessus.org/products/nessus/nessus-plugins/obtain-an-activation-code</a> </p><p>进去之后选择家庭版，注册名字，输入邮箱得到激活码（在第一次输入会用到）</p><img src="/2019/03/26/nessue的使用/3.png"><p>网页下输入  <code>https://hostname:8834</code>    (hostname指你的系统的名字，如我的就叫KALI-WJL。)</p><p>注册好之后到网页中输入创建的用户名密码，第一次进去的时候要下载插件所以会很慢，耐心等会。如果网络不稳定可能会下载终端，多试几次就好。</p><img src="/2019/03/26/nessue的使用/4.png"></li><li><p><strong>使用nessus</strong></p><p>进去之后选择右上角的new scan创建一个扫描的项目</p><img src="/2019/03/26/nessue的使用/5.png"><p>选择Advanced Scan（这就是扫描的功能）</p><img src="/2019/03/26/nessue的使用/6.png"><p>创建好之后要配置一些东西，这里只提一些重要的配置</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">(1).setting下的general中的targets。这里是输入检测主机的IP的地方，一定要输入。其他的除了name自己写外，可以随便写或者不写。</span><br><span class="line"></span><br><span class="line">(2).plugins插件的选择，一定要针对自己或目标的系统的类型去选择，不要盲目的去选择或者全选。鉴于插件都是英文，我这里有一份别手动翻译的文档可以给你们借鉴一下。</span><br></pre></td></tr></table></figure><img src="/2019/03/26/nessue的使用/7.png"><p>其他的设置有兴趣的话可以自己去学习一下，基本上只要看懂英文就没什么问题了。所以这个时候<strong><u><em>网易有道</em></u></strong>就显得很重要了。</p><p>所有准备工作做好之左下角有一个<strong><em><u>save</u></em></strong>保存一下，回到主页开始扫描</p></li><li><p><strong>扫描完成后会有一个<em>export</em>的按钮点击导出你喜欢的格式。导出后的文件在你的用户的家目录下，一般都是在root下 。</strong></p><img src="/2019/03/26/nessue的使用/10.png"></li></ol><h4 id="最后把插件的手动翻译给你分享一下（有道翻译，大体意思懂就好）"><a href="#最后把插件的手动翻译给你分享一下（有道翻译，大体意思懂就好）" class="headerlink" title="最后把插件的手动翻译给你分享一下（有道翻译，大体意思懂就好）"></a>最后把插件的手动翻译给你分享一下（有道翻译，大体意思懂就好）</h4><p>​    <img src="/2019/03/26/nessue的使用/8.png"></p><p>​    <img src="/2019/03/26/nessue的使用/9.png"></p><p><em><u>这并不是所有插件的翻译，之前做的，可能更新新的插件的翻译么的。</u></em></p>]]></content>
+    <content type="html"><![CDATA[<p>经过一段时间的沉淀，本人决定重启我的hexo博客，这是一次测试。</p><a id="more"></a>    ]]></content>
     
     <summary type="html">
     
-      &lt;h1 id=&quot;nessus的使用方法&quot;&gt;&lt;a href=&quot;#nessus的使用方法&quot; class=&quot;headerlink&quot; title=&quot;nessus的使用方法&quot;&gt;&lt;/a&gt;nessus的使用方法&lt;/h1&gt;&lt;h4 id=&quot;先介绍一下nessus：&quot;&gt;&lt;a href=&quot;#先介绍一下nessus：&quot; class=&quot;headerlink&quot; title=&quot;先介绍一下nessus：&quot;&gt;&lt;/a&gt;先介绍一下nessus：&lt;/h4&gt;&lt;p&gt;​    nessus是一款非常好的漏洞扫描工具，使用的端口为8834，它是目前使用最多的漏洞扫描工具之一，其中集成了许多的功能，但就使用效果来说，我本人用这个工具仅仅使用其扫描功能而已，一方面来说整个工具中只有这个功能是免费的，其他的功能也就企业使用，个人用户一般用不到，另一方面，他的漏洞扫描的插件确实强大，有很多针对于经常出现问题的服务的插件，扫描完后可以生成报告文档，很方便。&lt;/p&gt;
+      &lt;p&gt;经过一段时间的沉淀，本人决定重启我的hexo博客，这是一次测试。&lt;/p&gt;
     
     </summary>
     
-      <category term="tool" scheme="http://yoursite.com/categories/tool/"/>
+      <category term="reboot" scheme="http://yoursite.com/categories/reboot/"/>
     
     
-      <category term="tool tutorial" scheme="http://yoursite.com/tags/tool-tutorial/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>关于msfconsole自动连接数据库失败问题解决</title>
-    <link href="http://yoursite.com/2019/03/26/%E5%85%B3%E4%BA%8Emsfconsole%E8%87%AA%E5%8A%A8%E8%BF%9E%E6%8E%A5%E6%95%B0%E6%8D%AE%E5%BA%93%E5%A4%B1%E8%B4%A5%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3/"/>
-    <id>http://yoursite.com/2019/03/26/关于msfconsole自动连接数据库失败问题解决/</id>
-    <published>2019-03-26T06:16:13.000Z</published>
-    <updated>2019-03-27T12:28:13.709Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="关于msfconsole自动连接数据库失败问题解决"><a href="#关于msfconsole自动连接数据库失败问题解决" class="headerlink" title="关于msfconsole自动连接数据库失败问题解决"></a>关于msfconsole自动连接数据库失败问题解决</h1><p>这篇博客可能对于那些有强迫症的人来说是一个福音把，本人就是一个患有微型强迫症的人，凡事追求完美，所以才绞尽脑汁的去找解决这一问题的办法，也是在网上找了很多的资料才解决了这一个问题。有需要的可以借鉴一下</p><p>​    就本身来说msf这个工具是否连接数据库，影响不大，只是有时后他的查找模块的速度实在太慢了。为了追求速度，我决定找资料来解决我的这个问题。下面说一下我的这个问题的解决方法</p> <a id="more"></a><p>​    <a href="https://blog.csdn.net/qq_34444097/article/details/79679640" target="_blank" rel="noopener">前面部分我主要是引用了这条博客里的方法</a></p><p>​    从这里开始要注意了：</p><p>​    <img src="/2019/03/26/关于msfconsole自动连接数据库失败问题解决/1.png"></p><p>在数据库里进行这些操作时要先查看数据库里是否已经存在msf用户和msf库，如果存在要先删除此用户及库再重新建立，用到的删除命令如下（注意分号，有分号的命令一定要带分号）</p><p>​    </p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">\du; 查看用户</span><br><span class="line"></span><br><span class="line">drop user msf; 删除msf用户</span><br><span class="line"></span><br><span class="line">\l 查看数据库</span><br><span class="line"></span><br><span class="line">drop database msf; 删除数据库</span><br></pre></td></tr></table></figure><p>接下来进入数据库创建新的数据库</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">create user msf with password &apos;admin&apos; createdb; </span><br><span class="line"></span><br><span class="line">create database msf with owner=msf;</span><br></pre></td></tr></table></figure><p>进入msfconsole后查看数据库连接状态，如未连接，手动执行连接，命令为</p><p>​    </p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db_connect</span><br></pre></td></tr></table></figure><p>接下来就是如何开启自动连接：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">到此路径下：/usr/share/metasploit-framework/config</span><br><span class="line"></span><br><span class="line">先备份一下原有的database.yml文件</span><br><span class="line"></span><br><span class="line">cp database.yml database.yml.bak</span><br><span class="line"></span><br><span class="line">里面有模板文件是database.yml.travis</span><br><span class="line"></span><br><span class="line">将其作为配置文件覆盖</span><br><span class="line"></span><br><span class="line">cp database.yml.travis database.yml</span><br></pre></td></tr></table></figure><p>​    leafpad打开database.yml将其编辑成下面的样子保存即可。</p><p>​    <img src="/2019/03/26/关于msfconsole自动连接数据库失败问题解决/2.png"></p><p>重启postgres数据库，打开msfconsole，查看数据库连接状态应该就已经自动连接成功了</p><p>​    </p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;h1 id=&quot;关于msfconsole自动连接数据库失败问题解决&quot;&gt;&lt;a href=&quot;#关于msfconsole自动连接数据库失败问题解决&quot; class=&quot;headerlink&quot; title=&quot;关于msfconsole自动连接数据库失败问题解决&quot;&gt;&lt;/a&gt;关于msfconsole自动连接数据库失败问题解决&lt;/h1&gt;&lt;p&gt;这篇博客可能对于那些有强迫症的人来说是一个福音把，本人就是一个患有微型强迫症的人，凡事追求完美，所以才绞尽脑汁的去找解决这一问题的办法，也是在网上找了很多的资料才解决了这一个问题。有需要的可以借鉴一下&lt;/p&gt;
-&lt;p&gt;​    就本身来说msf这个工具是否连接数据库，影响不大，只是有时后他的查找模块的速度实在太慢了。为了追求速度，我决定找资料来解决我的这个问题。下面说一下我的这个问题的解决方法&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="tool" scheme="http://yoursite.com/categories/tool/"/>
-    
-    
-      <category term="tool problem" scheme="http://yoursite.com/tags/tool-problem/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>永恒之蓝入侵过程</title>
-    <link href="http://yoursite.com/2019/03/26/%E6%B0%B8%E6%81%92%E4%B9%8B%E8%93%9D%E5%85%A5%E4%BE%B5%E8%BF%87%E7%A8%8B/"/>
-    <id>http://yoursite.com/2019/03/26/永恒之蓝入侵过程/</id>
-    <published>2019-03-26T06:14:02.000Z</published>
-    <updated>2019-03-27T15:16:06.710Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="永恒之蓝的入侵过程"><a href="#永恒之蓝的入侵过程" class="headerlink" title="永恒之蓝的入侵过程"></a>永恒之蓝的入侵过程</h1><p>​    <strong>永恒之蓝在msfconsole中被称之为ms17_010，对应的端口为445端口，也就是SMB服务，这是微软出问题最多的一个服务。</strong></p><p>​    如果你的主机445端口有打开的</p><p>话，那入侵者会有很大的机会通过这种方式入侵到你的主机，当然这只是针对于一下系统在没有打补丁的情况下。</p><p>​    被ms17-010影响的系统版本：Windows NT，Windows 2000、Windows XP、Windows 2003、Windows Vista、Windows 7、Windows 8，Windows 2008、Windows 2008 R2、Windows Server 2012 SP0。 </p><a id="more"></a>        <p>​    现在重现一下这个漏洞：</p><ol><li><h3 id="打开一个Windows-server-2008-2003（不需要任何操作）"><a href="#打开一个Windows-server-2008-2003（不需要任何操作）" class="headerlink" title="打开一个Windows server 2008 / 2003（不需要任何操作）"></a><strong>打开一个Windows server 2008 / 2003（不需要任何操作）</strong></h3></li><li><h3 id="进入kaliLinux系统，进行主机发现，这里我用的是netdiscover的二层发现。当然主机发现的方法有很多，选自己最熟练就好"><a href="#进入kaliLinux系统，进行主机发现，这里我用的是netdiscover的二层发现。当然主机发现的方法有很多，选自己最熟练就好" class="headerlink" title="进入kaliLinux系统，进行主机发现，这里我用的是netdiscover的二层发现。当然主机发现的方法有很多，选自己最熟练就好"></a><strong>进入kaliLinux系统，进行主机发现，这里我用的是netdiscover的二层发现。当然主机发现的方法有很多，选自己最熟练就好</strong></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">**netdiscover -i eth0 -r 网段（-i指定网卡）**</span><br></pre></td></tr></table></figure><img src="/2019/03/26/永恒之蓝入侵过程/1.png"></li><li><h3 id="发现目标IP后可使用nessus去扫描目标主机是否有相关漏洞。（关于这个工具的使用后续我会发博客演示）"><a href="#发现目标IP后可使用nessus去扫描目标主机是否有相关漏洞。（关于这个工具的使用后续我会发博客演示）" class="headerlink" title="发现目标IP后可使用nessus去扫描目标主机是否有相关漏洞。（关于这个工具的使用后续我会发博客演示）"></a><strong>发现目标IP后可使用nessus去扫描目标主机是否有相关漏洞。（关于这个工具的使用后续我会发博客演示）</strong></h3></li><li><h3 id="启动msfconsole（先启动数据库Msfdb-start-或者-service-postgresql-start）"><a href="#启动msfconsole（先启动数据库Msfdb-start-或者-service-postgresql-start）" class="headerlink" title="启动msfconsole（先启动数据库Msfdb start 或者 service postgresql start）"></a><strong>启动msfconsole（先启动数据库Msfdb start 或者 service postgresql start）</strong></h3><p><strong>关于有些人启动数据库后启动msfconsole还是不能连接数据的问题，后续也会推出我的解决办法，当然不论是否连接上数据库都不影响msfconsole的使用只是查找模块的速度会慢一些。</strong></p></li><li><h3 id="查找ms17-010的相关模块"><a href="#查找ms17-010的相关模块" class="headerlink" title="查找ms17_010的相关模块"></a><strong>查找ms17_010的相关模块</strong></h3><img src="/2019/03/26/永恒之蓝入侵过程/2.png"></li><li><h3 id="使用扫描模块（进一步扫描是否存在ms17-010"><a href="#使用扫描模块（进一步扫描是否存在ms17-010" class="headerlink" title="使用扫描模块（进一步扫描是否存在ms17_010"></a><strong>使用扫描模块（进一步扫描是否存在ms17_010</strong></h3><img src="/2019/03/26/永恒之蓝入侵过程/3.png"></li><li><h3 id="使用攻击模块"><a href="#使用攻击模块" class="headerlink" title="使用攻击模块"></a><strong>使用攻击模块</strong></h3><p><strong>攻击完成后会弹出Windows的DOS窗口，直接是最高的系统权限</strong></p><img src="/2019/03/26/永恒之蓝入侵过程/4.png"><img src="/2019/03/26/永恒之蓝入侵过程/5.png"><p><strong>为了更加方便的操作，可以利用DOS界面关闭防火墙，打开远程连接端口（3389），实现远程的图像化操作</strong></p><img src="/2019/03/26/永恒之蓝入侵过程/7.png"><img src="/2019/03/26/永恒之蓝入侵过程/8.png"><img src="/2019/03/26/永恒之蓝入侵过程/10.png"><img src="/2019/03/26/永恒之蓝入侵过程/11.png"><img src="/2019/03/26/永恒之蓝入侵过程/12.png"><p><strong>在这里可能存在问题，没有账号密码怎么登录界面，前面在DOS中已经时系统权限了，我们可以创建一个自己的用户到管理员组，登录再提权到系统权限了，这个方法就很多了。</strong></p></li></ol><ol start="8"><li><h3 id="完成收工时记得清理访问日志，留下后门，以便于下次继续来访。"><a href="#完成收工时记得清理访问日志，留下后门，以便于下次继续来访。" class="headerlink" title="完成收工时记得清理访问日志，留下后门，以便于下次继续来访。"></a><strong>完成收工时记得清理访问日志，留下后门，以便于下次继续来访。</strong></h3></li></ol><p>​    <strong>最后谈一下感想，作为一个刚刚入门安全不久的小白，这是我在github的第一篇博客，想在这里记录一下自己再安全领域的学习历程，当然欢迎各位大佬的指点，我一定虚心接受学习。总之，是真的喜欢这一行业才决定要在这里请教，记录，后续还或有更多的关于我学习安全的一些博客和经历，欢迎各位前来指点。</strong></p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;h1 id=&quot;永恒之蓝的入侵过程&quot;&gt;&lt;a href=&quot;#永恒之蓝的入侵过程&quot; class=&quot;headerlink&quot; title=&quot;永恒之蓝的入侵过程&quot;&gt;&lt;/a&gt;永恒之蓝的入侵过程&lt;/h1&gt;&lt;p&gt;​    &lt;strong&gt;永恒之蓝在msfconsole中被称之为ms17_010，对应的端口为445端口，也就是SMB服务，这是微软出问题最多的一个服务。&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;​    如果你的主机445端口有打开的&lt;/p&gt;
-&lt;p&gt;话，那入侵者会有很大的机会通过这种方式入侵到你的主机，当然这只是针对于一下系统在没有打补丁的情况下。&lt;/p&gt;
-&lt;p&gt;​    被ms17-010影响的系统版本：Windows NT，Windows 2000、Windows XP、Windows 2003、Windows Vista、Windows 7、Windows 8，Windows 2008、Windows 2008 R2、Windows Server 2012 SP0。 &lt;/p&gt;
-    
-    </summary>
-    
-      <category term="classic loopholes" scheme="http://yoursite.com/categories/classic-loopholes/"/>
-    
-    
-      <category term="penetration testing" scheme="http://yoursite.com/tags/penetration-testing/"/>
+      <category term="华丽分割线" scheme="http://yoursite.com/tags/%E5%8D%8E%E4%B8%BD%E5%88%86%E5%89%B2%E7%BA%BF/"/>
     
   </entry>
   
